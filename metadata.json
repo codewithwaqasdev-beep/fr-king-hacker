@@ -1,0 +1,8 @@
+{
+  "name": "FR-KING AURA",
+  "description": "FR-KING AURA trading intelligence terminal - AI Bot Pro Max 2.0 with database attached for licenses, signals, and admin control.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,24 @@
+<IfModule mod_headers.c>
+  Header always set Access-Control-Allow-Origin "*"
+  Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization, apikey"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Pass Authorization header to PHP
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  # If the requested file or directory exists directly on disk, serve it as is
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Route API requests to PHP router
+  RewriteRule ^api/(.*)$ api/index.php [QSA,L]
+  RewriteRule ^api/?$ api/index.php [QSA,L]
+
+  # Route all other frontend paths to index.html for React SPA
+  RewriteRule ^ index.html [L]
+</IfModule>
