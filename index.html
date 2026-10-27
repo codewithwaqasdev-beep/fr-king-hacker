@@ -2,29 +2,146 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#050505" />
-    <meta name="color-scheme" content="dark" />
-    <title>FR-KING AURA — New Version</title>
-    <meta name="description" content="FR-KING AURA trading intelligence terminal - AI Bot Pro Max 2.0 with database attached for licenses, signals, and admin control." />
-    <meta name="application-name" content="FR-KINGs AURA" />
-    <meta name="apple-mobile-web-app-title" content="FR-KINGs AURA" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta property="og:title" content="FR-KING AURA — New Version" />
-    <meta property="og:description" content="FR-KING AURA trading intelligence terminal - AI Bot Pro Max 2.0 with database attached for licenses, signals, and admin control." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-    <link rel="apple-touch-icon" href="/fr-kings-logo.jpg" />
-    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FR-KING AURA | Static Hosting Edition</title>
+    <meta name="description" content="FR-KING AURA trading terminal static frontend for cPanel/PHP hosting" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Oxanium:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&family=Oxanium:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="antialiased bg-[#050505] text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">FK</div>
+          <div>
+            <div class="brand-name">FR-KING AURA</div>
+            <div class="brand-subtitle">STATIC HOSTING EDITION</div>
+          </div>
+        </div>
+        <nav class="nav-actions">
+          <button id="show-activation-btn" class="nav-button active">Activation</button>
+          <button id="show-dashboard-btn" class="nav-button">Dashboard</button>
+          <button id="show-admin-btn" class="nav-button">Admin</button>
+        </nav>
+      </header>
+
+      <main class="content-wrap">
+        <section id="activation-view" class="panel active">
+          <div class="panel-header">
+            <div>
+              <div class="eyebrow">License Access</div>
+              <h1>Activate Your Terminal</h1>
+            </div>
+          </div>
+
+          <div class="grid two-col">
+            <div class="card">
+              <h2>Verify Key</h2>
+              <form id="verify-form" class="stack-form">
+                <label>
+                  <span>License Key</span>
+                  <input id="verify-key" type="text" placeholder="FRK-..." required />
+                </label>
+                <label>
+                  <span>Device Name</span>
+                  <input id="device-name" type="text" placeholder="Windows Laptop / iPhone" value="web-client" />
+                </label>
+                <button class="primary-btn" type="submit">Verify License</button>
+              </form>
+            </div>
+
+            <div class="card">
+              <h2>Register New Key</h2>
+              <form id="register-form" class="stack-form">
+                <label>
+                  <span>Full Name</span>
+                  <input id="full-name" type="text" placeholder="Your full name" required />
+                </label>
+                <label>
+                  <span>Phone</span>
+                  <input id="phone" type="tel" placeholder="+966..." required />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input id="email" type="email" placeholder="name@example.com" required />
+                </label>
+                <label>
+                  <span>Amount</span>
+                  <input id="amount" type="text" placeholder="250 USD" value="Pending Payment" />
+                </label>
+                <button class="secondary-btn" type="submit">Request License</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="dashboard-view" class="panel hidden">
+          <div class="panel-header">
+            <div>
+              <div class="eyebrow">Terminal Status</div>
+              <h1>Trading Dashboard</h1>
+            </div>
+            <button id="logout-btn" class="ghost-btn">Logout</button>
+          </div>
+
+          <div class="status-row" id="status-row">
+            <div class="stat-box">
+              <span class="label">License</span>
+              <strong id="license-status">Not active</strong>
+            </div>
+            <div class="stat-box">
+              <span class="label">Devices</span>
+              <strong id="device-count">0</strong>
+            </div>
+            <div class="stat-box">
+              <span class="label">Status</span>
+              <strong id="plan-status">Pending</strong>
+            </div>
+          </div>
+
+          <div class="card signal-card">
+            <div class="signal-header">
+              <h2>Live Signals</h2>
+              <button id="reload-signals-btn" class="mini-btn">Refresh</button>
+            </div>
+            <div id="signals-list" class="signals-list"></div>
+          </div>
+        </section>
+
+        <section id="admin-view" class="panel hidden">
+          <div class="panel-header">
+            <div>
+              <div class="eyebrow">Control Center</div>
+              <h1>Admin Panel</h1>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Admin Login</h2>
+            <form id="admin-login-form" class="stack-form compact">
+              <label>
+                <span>Password</span>
+                <input id="admin-password" type="password" placeholder="Admin password" />
+              </label>
+              <button class="primary-btn" type="submit">Login</button>
+            </form>
+          </div>
+
+          <div class="card admin-results hidden" id="admin-results">
+            <div class="signal-header">
+              <h2>License Registry</h2>
+              <button id="admin-refresh-btn" class="mini-btn">Reload</button>
+            </div>
+            <div id="admin-keys" class="table-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="app.js"></script>
   </body>
 </html>
-
-
